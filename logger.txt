@@ -2,3 +2,14 @@ Method -> GET  Time -> 1779462959616 URL -> /api/users
 Method -> GET  Time -> 1779463178373 URL -> /api/users
 Method -> GET  Time -> 1779463306265 URL -> /api/users
 Method -> GET  Time -> 1779463375542 URL -> /api/users
+Method -> GET  Time -> 1779463739725 URL -> /api/users
+Method -> POST  Time -> 1779463751280 URL -> /api/users
+Method -> POST  Time -> 1779463955690 URL -> /api/users
+Method -> POST  Time -> 1779463997146 URL -> /api/users
+Method -> POST  Time -> 1779464871068 URL -> /api/users
+Method -> POST  Time -> 1779464910213 URL -> /api/auth/login
+Method -> GET  Time -> 1779464943558 URL -> /api/users
+Method -> GET  Time -> 1779464984509 URL -> /api/users
+Method -> POST  Time -> 1779465002502 URL -> /api/users
+Method -> GET  Time -> 1779465046707 URL -> /api/users
+Method -> GET  Time -> 1779465699502 URL -> /api/users

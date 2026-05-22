@@ -12,16 +12,18 @@ const loginUserIntoDB = async (payload: {
   if (userData.rows.length === 0) {
     throw new Error("User not Exists");
   }
-  const userExists = userData.rows[0];
+  const user = userData.rows[0];
 
   // const matchPassword = await bcrypt.compare(password, userExists.password);
   // if (!matchPassword) {
   //   throw new Error("Invalid Credentials");
   // }
   const jwtPayload = {
-    id: userExists.id,
-    name: userExists.name,
-    email: userExists.email,
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    is_active: user.is_active,
   };
   const accessToken = jwt.sign(jwtPayload, config.secret, {
     expiresIn: "1h",
