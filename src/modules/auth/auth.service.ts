@@ -28,7 +28,10 @@ const loginUserIntoDB = async (payload: {
   const accessToken = jwt.sign(jwtPayload, config.secret, {
     expiresIn: "1h",
   });
-  return { accessToken };
+  const refreshToken = jwt.sign(jwtPayload, config.refresh_secret, {
+    expiresIn: "1h",
+  });
+  return { accessToken, refreshToken };
 };
 
 export const authService = {
