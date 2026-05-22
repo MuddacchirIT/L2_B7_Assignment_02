@@ -1,6 +1,7 @@
-import express, { type Application } from "express";
-import fs from "fs";
+import type { Application, Request, Response } from "express";
+import express from "express";
 import config from "./config/index";
+import logger from "./middleware/logger";
 import authRoute from "./modules/auth/auth.route";
 import issuesRoute from "./modules/issues/issue.route";
 import usersRoute from "./modules/users/user.route";
@@ -9,14 +10,14 @@ const port = config.port;
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+app.use(logger);
 
-app.use("/api", (req, res, next) => {
-  console.log("Method - URL - Time:", req.method, req.url, Date.now());
-  const log = `Method -> ${req.method}  Time -> ${Date.now()} URL -> ${req.url}\n`;
-  fs.appendFile("logger.txt", log, (err) => {
-    console.log(err);
+app.get("/", (req: Request, res: Response) => {
+  //   res.send("Hello World!");
+  res.status(200).json({
+    success: true,
+    message: "Welcome to Express Server",
   });
-  next();
 });
 
 app.use("/api/users", usersRoute);

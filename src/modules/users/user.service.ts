@@ -2,10 +2,10 @@ import bcrypt from "bcrypt";
 import { pool } from "../../db/index";
 import type { IUser } from "./user.interface";
 const createUserIntoDB = async (payLoad: IUser) => {
-  const { name, email, password, age, role } = payLoad;
+  const { name, email, password, role } = payLoad;
   const hashedPassword = await bcrypt.hash(password, 10);
   const result = await pool.query(
-    `INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *`,
+    `INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, COALESCE($4,'user')) RETURNING *`,
     [name, email, hashedPassword, role],
   );
   delete result.rows[0].password;
