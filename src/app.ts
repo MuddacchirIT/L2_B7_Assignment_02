@@ -1,4 +1,5 @@
 import express, { type Application } from "express";
+import fs from "fs";
 import config from "./config/index";
 import authRoute from "./modules/auth/auth.route";
 import issuesRoute from "./modules/issues/issue.route";
@@ -9,17 +10,17 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api", (req, res, next) => {
+  console.log("Method - URL - Time:", req.method, req.url, Date.now());
+  const log = `Method -> ${req.method}  Time -> ${Date.now()} URL -> ${req.url}\n`;
+  fs.appendFile("logger.txt", log, (err) => {
+    console.log(err);
+  });
+  next();
+});
+
 app.use("/api/users", usersRoute);
 app.use("/api/issues", issuesRoute);
 app.use("/api/auth", authRoute);
-// all post
-
-// Get all users
-
-// Get single user
-
-// put operation
-
-// delete operation
 
 export default app;

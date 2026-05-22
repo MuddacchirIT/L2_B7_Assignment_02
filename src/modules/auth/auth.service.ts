@@ -1,4 +1,5 @@
-import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import config from "../../config/index";
 import { pool } from "../../db/index";
 const loginUserIntoDB = async (payload: {
   email: string;
@@ -9,15 +10,25 @@ const loginUserIntoDB = async (payload: {
     email,
   ]);
   if (userData.rows.length === 0) {
-    throw new Error("Invalid Credentials");
+    throw new Error("User not Exists");
   }
   const userExists = userData.rows[0];
-  const matchPassword = await bcrypt.compare(password, userExists.password);
-  if (!matchPassword) {
-    throw new Error("Invalid Credentials");
-  }
-  return userExists;
+
+  // const matchPassword = await bcrypt.compare(password, userExists.password);
+  // if (!matchPassword) {
+  //   throw new Error("Invalid Credentials");
+  // }
+  const jwtPayload = {
+    id: userExists.id,
+    name: userExists.name,
+    email: userExists.email,
+  };
+  const accessToken = jwt.sign(jwtPayload, config.secret, {
+    expiresIn: "1h",
+  });
+  return { accessToken };
 };
+
 export const authService = {
   loginUserIntoDB,
 };

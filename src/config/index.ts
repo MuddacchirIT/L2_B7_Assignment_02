@@ -5,5 +5,6 @@ console.log(path.join(process.cwd(), ".env"));
 const config = {
   connectionString: process.env.CONNECTIONSTRING as string,
   port: process.env.PORT as string,
+  secret: process.env.JWT_SECRET_KEY as string,
 };
 export default config;
